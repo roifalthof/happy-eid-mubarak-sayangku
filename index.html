@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy eid Mubarak binaa 💖</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* BACKGROUND FOTO */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      linear-gradient(rgba(255,205,220,.75),rgba(248,187,208,.75)),
+      url("bina-lucu.png") center/cover no-repeat;
+    filter:blur(2px);
+    z-index:-2;
+}
+
+/* BUTTON */
+.open-btn{
+    padding:18px 42px;
+    font-size:20px;
+    border-radius:40px;
+    border:none;
+    background:#ec407a;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 45px #fff;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    50%{box-shadow:0 0 80px #fff}
+}
+
+/* NAME FLOAT */
+.name-float{
+    position:fixed;
+    top:10%;
+    font-size:64px;
+    font-weight:bold;
+    color:white;
+    text-shadow:0 0 40px #ff4081;
+    opacity:0;
+    animation:fadeName 4s forwards;
+    z-index:6;
+}
+
+@keyframes fadeName{
+    to{opacity:1}
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    backdrop-filter:blur(5px);
+}
+
+.modal-content{
+    background:linear-gradient(#fce4ec,#f8bbd0);
+    border-radius:28px;
+    width:90%;
+    max-width:380px;
+    padding:20px;
+    text-align:center;
+    animation:zoom .6s ease;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    top:10px;
+    right:14px;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* SIDE TEXT */
+.side-text{
+    position:absolute;
+    top:55%;
+    transform:translateY(-50%);
+    font-size:30px;
+    font-weight:bold;
+    color:white;
+    opacity:0;
+    text-shadow:
+      0 0 14px #fff,
+      0 0 32px #ff80ab;
+    animation:sideAppear 2.5s ease forwards;
+    pointer-events:none;
+}
+
+.side-text.left{ left:-100px; animation-delay:1.2s; }
+.side-text.right{ right:-110px; animation-delay:1.8s; }
+
+@keyframes sideAppear{
+    from{opacity:0; transform:translateY(-50%) scale(.8)}
+    to{opacity:1; transform:translateY(-50%) scale(1)}
+}
+
+.modal-content img{
+    width:100%;
+    border-radius:18px;
+    box-shadow:0 0 35px #fff;
+}
+
+/* TEXT BOX */
+.text-box{
+    margin-top:12px;
+    background:rgba(255,255,255,.3);
+    border-radius:18px;
+    padding:16px;
+}
+
+.text-box h1{
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+    text-shadow:0 0 30px #ff4081;
+}
+
+.text-box p{
+    color:#880e4f;
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* CANVAS */
+canvas{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:5;
+}
+
+/* LOVE RAIN */
+.fall{
+    position:fixed;
+    animation:fall linear forwards;
+    z-index:6;
+}
+
+@keyframes fall{
+    to{transform:translateY(120vh);opacity:0}
+}
+
+@keyframes zoom{
+    from{transform:scale(.6);opacity:0}
+    to{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<button class="open-btn" onclick="openModal()">CLICK DISINI YA 💖</button>
+
+<canvas id="fx"></canvas>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+
+<div class="side-text left">Hello</div>
+<div class="side-text right">Binaa!!</div>
+
+<div class="close" onclick="closeModal()">✖</div>
+
+<img src="c:\Users\roifa\Downloads\bina lucu.png">
+
+<div class="text-box">
+<h1 id="title"></h1>
+<p id="message"></p>
+</div>
+
+</div>
+</div>
+
+<audio id="music" loop>
+<source src="c:\Users\roifa\Downloads\ssstik.io_1767192650095.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const titleText="HAPPY EID MUBARAK BINAA 🎇";
+const msgText="Today is Eid, and I want to sincerely apologize if I’ve ever made mistakes or hurt your feelings, knowingly or unknowingly. Please forgive me, because you mean so much to me. May Allah bless us with love, happiness, and a beautiful year ahead together. 🌙💖";
+
+let ti=0,mi=0;
+function typeText(){
+ if(ti<titleText.length){
+  title.innerHTML+=titleText[ti++];
+  setTimeout(typeText,70);
+ }else if(mi<msgText.length){
+  message.innerHTML+=msgText[mi++];
+  setTimeout(typeText,30);
+ }
+}
+
+/* MUSIC */
+const music=document.getElementById("music");
+function fadeIn(){
+ music.volume=0; music.play();
+ let v=0;
+ const i=setInterval(()=>{
+  v+=0.02; music.volume=v;
+  if(v>=1)clearInterval(i);
+ },100);
+}
+function fadeOut(){
+ let v=music.volume;
+ const i=setInterval(()=>{
+  v-=0.02; music.volume=v;
+  if(v<=0){music.pause();clearInterval(i);}
+ },100);
+}
+
+/* NAME */
+function showName(){
+ const n=document.createElement("div");
+ n.className="name-float";
+ n.innerText="Hello Bina!! 💖";
+ document.body.appendChild(n);
+}
+
+/* MODAL */
+let running=false,heartRain;
+function openModal(){
+ modal.style.display="flex";
+ title.innerHTML=""; message.innerHTML="";
+ ti=mi=0; typeText();
+ fadeIn(); running=true; animate();
+ heartRain=setInterval(createHeart,80);
+ showName();
+}
+function closeModal(){
+ modal.style.display="none";
+ running=false; fadeOut();
+ clearInterval(heartRain);
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+
+/* FIREWORK LOVE */
+const canvas=document.getElementById("fx");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let particles=[];
+
+function heartShape(t){
+ return {
+  x:16*Math.pow(Math.sin(t),3),
+  y:-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))
+ };
+}
+
+function explodeLove(x,y){
+ for(let t=0;t<Math.PI*2;t+=0.1){
+  const h=heartShape(t);
+  particles.push({
+   x,y,
+   vx:h.x*0.7,
+   vy:h.y*0.7,
+   life:1,
+   color:`hsl(${Math.random()*360},100%,70%)`
+  });
+ }
+}
+
+function animate(){
+ if(!running)return;
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ if(Math.random()<0.05){
+  explodeLove(canvas.width*0.2,canvas.height*0.8);
+  explodeLove(canvas.width*0.8,canvas.height*0.8);
+ }
+
+ particles.forEach((p,i)=>{
+  p.x+=p.vx;
+  p.y+=p.vy;
+  p.life-=0.015;
+  ctx.globalAlpha=p.life;
+  ctx.fillStyle=p.color;
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,6,0,Math.PI*2);
+  ctx.fill();
+  if(p.life<=0)particles.splice(i,1);
+ });
+
+ requestAnimationFrame(animate);
+}
+
+/* LOVE RAIN */
+function createHeart(){
+ const h=document.createElement("div");
+ h.className="fall";
+ h.innerHTML="💖";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=Math.random()*34+40+"px";
+ h.style.animationDuration=Math.random()*2+3+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),6000);
+}
+
+onresize=()=>{
+ canvas.width=innerWidth;
+ canvas.height=innerHeight;
+};
+</script>
+
+</body>
+</html>
