@@ -25,7 +25,7 @@ body::before{
     inset:0;
     background:
       linear-gradient(rgba(255,205,220,.75),rgba(248,187,208,.75)),
-      url("bina-lucu.png") center/cover no-repeat;
+      url("binalucu.png") center/cover no-repeat;
     filter:blur(2px);
     z-index:-2;
 }
@@ -187,7 +187,8 @@ canvas{
 
 <div class="close" onclick="closeModal()">✖</div>
 
-<img src="c:\Users\roifa\Downloads\bina lucu.png">
+<!-- ✅ FIX GAMBAR -->
+<img src="binalucu.png">
 
 <div class="text-box">
 <h1 id="title"></h1>
@@ -197,8 +198,9 @@ canvas{
 </div>
 </div>
 
+<!-- ✅ FIX MUSIK -->
 <audio id="music" loop>
-<source src="c:\Users\roifa\Downloads\ssstik.io_1767192650095.mp3" type="audio/mpeg">
+<source src="musiclebaran.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -216,7 +218,6 @@ function typeText(){
  }
 }
 
-/* MUSIC */
 const music=document.getElementById("music");
 function fadeIn(){
  music.volume=0; music.play();
@@ -234,7 +235,6 @@ function fadeOut(){
  },100);
 }
 
-/* NAME */
 function showName(){
  const n=document.createElement("div");
  n.className="name-float";
@@ -242,7 +242,6 @@ function showName(){
  document.body.appendChild(n);
 }
 
-/* MODAL */
 let running=false,heartRain;
 function openModal(){
  modal.style.display="flex";
@@ -259,7 +258,6 @@ function closeModal(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
-/* FIREWORK LOVE */
 const canvas=document.getElementById("fx");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth;
@@ -310,7 +308,6 @@ function animate(){
  requestAnimationFrame(animate);
 }
 
-/* LOVE RAIN */
 function createHeart(){
  const h=document.createElement("div");
  h.className="fall";
